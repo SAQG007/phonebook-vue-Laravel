@@ -18,7 +18,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col">
-                        <contact></contact>
+                        <contact/>
                     </div>
                 </div>
             </div>
