@@ -5318,30 +5318,24 @@ __webpack_require__.r(__webpack_exports__);
   components: {},
   data: function data() {
     return {
-      contacts: []
+      contacts: {}
     };
   },
   methods: {
     fetchContacts: function fetchContacts() {
-      this.contacts = [{
-        'id': '1',
-        'name': 'Ali',
-        'phone': '11111111',
-        'email': 'ali@example.com'
-      }, {
-        'id': '2',
-        'name': 'Ahmed',
-        'phone': '2222222',
-        'email': 'ahmed@example.com'
-      }]; // axios.get('http://127.0.0.1:8000/api/contacts')
-      //     .then(function (response) {
-      //         this.contacts = response.data;
-      //     });
+      var _this = this;
+
+      axios.get("http://127.0.0.1:8000/api/contacts").then(function (response) {
+        var contactData = JSON.parse(JSON.stringify(response.data));
+        _this.contacts = contactData.data;
+        console.log("Contacts are: ");
+        console.log(_this.contacts);
+      });
     },
-    // fetchContacts
+    //fetchContacts()
     showAlert: function showAlert() {
       alert("Edited");
-    } // showAlert
+    } // showAlert()
     // syncContact() {
     //
     // },
@@ -5470,7 +5464,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", _vm._l(_vm.contacts, function (contact) {
+  return _c("div", _vm._l(JSON.parse(JSON.stringify(_vm.contacts)), function (contact) {
     return _c("div", [_c("contact-list", {
       attrs: {
         contact: contact
@@ -5661,14 +5655,19 @@ var render = function render() {
     staticClass: "card mt-4",
     staticStyle: {
       width: "100%",
-      padding: "10px"
+      padding: "10px",
+      "": "hover{background-color: yellow}"
     },
     on: {
       click: function click($event) {
         return _vm.toggleIsExpanded();
       }
     }
-  }, [_c("h5", [_vm._v(_vm._s(_vm.contact.name))]), _vm._v(" "), _vm.isExpanded ? _c("div", {
+  }, [_c("h5", {
+    staticStyle: {
+      cursor: "pointer"
+    }
+  }, [_vm._v(_vm._s(_vm.contact.name))]), _vm._v(" "), _vm.isExpanded ? _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "mt-2"
