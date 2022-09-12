@@ -7,8 +7,9 @@
 <!--        </div>-->
 <!--    </div>-->
 
-    <div class="card mt-4" style="width: 100%; padding: 10px;" @click="toggleIsExpanded()" v-if="!isEditing">
+    <div class="card mt-4 mb-4" style="width: 100%; padding: 10px;" @click="toggleIsExpanded()" v-if="!isEditing">
         <h5 style="cursor: pointer">{{ contact.name }}</h5>
+
         <div class="card-body" v-if="isExpanded">
 
             <div class="mt-2">
@@ -26,12 +27,13 @@
 
             <div class="mt-4">
                 <button class="btn btn-warning active" @click="toggleIsEditing()">Edit</button>
-                <button class="btn btn-warning" @click="$emit('edit')">Emit</button>
+                <button class="btn btn-danger active" @click="$emit('deleteContact', contact.id)">Delete</button>
+                <button class="btn btn-warning" @click="$emit('edit', contact.name)">Emit</button>
             </div>
         </div>
     </div>
     <div v-else>
-        <contact-form :contact=contact></contact-form>
+        <contact-form :contact=contactCopy></contact-form>
     </div>
 </template>
 
@@ -43,12 +45,13 @@ export default {
         return {
             isExpanded: this.isExpandedProp,
             isEditing: false,
+            contactCopy: this.contact,
         }
     },
 
     props: {
         contact: {
-            require: true
+            require: true,
         },
 
         isExpandedProp: {
@@ -59,11 +62,11 @@ export default {
     methods: {
         toggleIsExpanded() {
             this.isExpanded = !this.isExpanded;
-        },
+        }, // toggleIsExpanded()
 
         toggleIsEditing() {
             this.isEditing = !this.isEditing;
-        },
+        }, // toggleIsEditing()
     },
 }
 </script>
