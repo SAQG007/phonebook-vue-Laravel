@@ -7,7 +7,7 @@
 <!--        </div>-->
 <!--    </div>-->
 
-    <div class="card mt-4" style="width: 100%; padding: 10px; :hover{background-color: yellow}" @click="toggleIsExpanded()" v-if="!isEditing">
+    <div class="card mt-4" style="width: 100%; padding: 10px;" @click="toggleIsExpanded()" v-if="!isEditing">
         <h5 style="cursor: pointer">{{ contact.name }}</h5>
         <div class="card-body" v-if="isExpanded">
 
