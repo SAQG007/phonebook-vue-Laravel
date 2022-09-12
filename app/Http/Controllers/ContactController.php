@@ -54,7 +54,6 @@ class ContactController extends Controller
     {
         $contact = Contact::find($id);
         $contact->update($request->all());
-//        return response(['flag' => 'updated']);
         return new ContactResource($contact);
     }
 
