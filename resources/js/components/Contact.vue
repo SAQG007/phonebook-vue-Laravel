@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="contact in contacts">
+        <div v-for="contact in JSON.parse(JSON.stringify(contacts))">
             <contact-list :contact=contact @edit="showAlert"></contact-list>
         </div>
     </div>
@@ -13,36 +13,24 @@ export default {
 
     data() {
         return {
-            contacts: [],
+            contacts: {},
         }
     },
 
     methods: {
         fetchContacts() {
-            this.contacts = [
-                {
-                    'id': '1',
-                    'name': 'Ali',
-                    'phone': '11111111',
-                    'email': 'ali@example.com'
-                },
-                {
-                    'id': '2',
-                    'name': 'Ahmed',
-                    'phone': '2222222',
-                    'email': 'ahmed@example.com'
-                },
-            ]
-
-           // axios.get('http://127.0.0.1:8000/api/contacts')
-           //     .then(function (response) {
-           //         this.contacts = response.data;
-           //     });
-        }, // fetchContacts
+            axios.get("http://127.0.0.1:8000/api/contacts")
+                .then(response => {
+                    let contactData = JSON.parse(JSON.stringify(response.data));
+                    this.contacts = contactData.data;
+                    console.log("Contacts are: ");
+                    console.log(this.contacts);
+                })
+        }, //fetchContacts()
 
         showAlert() {
             alert("Edited");
-        } // showAlert
+        } // showAlert()
 
         // syncContact() {
         //
