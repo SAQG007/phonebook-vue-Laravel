@@ -68,8 +68,6 @@ export default {
         },
 
         updateContact() {
-            console.log(this.formData.name);
-            console.log(window.baseUrl + "contact/" + this.formData.id);
             axios.put(window.baseUrl + "contact/" + this.formData.id, this.formData)
                 .then(response => {
                     console.log(response)
