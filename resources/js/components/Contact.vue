@@ -29,7 +29,8 @@ export default {
         return {
             contacts: {},
             formData: {
-                name: "",
+                id: "",
+                name: "Sample Name",
                 phone: "",
                 email: "",
             },
@@ -38,13 +39,10 @@ export default {
 
     methods: {
         fetchContacts() {
-            // axios.get("http://127.0.0.1:8000/api/contacts")
             axios.get(window.baseUrl + "contacts")
                 .then(response => {
                     let contactData = JSON.parse(JSON.stringify(response.data));
                     this.contacts = contactData.data;
-                    console.log("Contacts are: ");
-                    console.log(this.contacts);
                 })
         }, //fetchContacts()
 
@@ -59,30 +57,22 @@ export default {
         },
 
         showAlert(value) {
-            alert(value);
+            alert(value.name);
         }, // showAlert()
 
         deleteContact(value) {
-            console.log("http://127.0.0.1:8000/api/contact/" + value);
-            axios.delete("http://127.0.0.1:8000/api/contact/" + value)
+            axios.delete( window.baseUrl + "contact/" + value)
                 .then(response => {
-                    console.log("Contact Deleted");
                     console.log(response);
                 })
                 .catch(error => {
-                    console.log("Unable to delete contact");
                     console.log(error);
                 });
         }, // deleteContact()
 
-        // syncContact() {
-        //
-        // },
-
     }, // methods
 
     mounted() {
-        console.log("Contact Component Mounted");
         this.fetchContacts();
     }
 }
