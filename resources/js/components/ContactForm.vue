@@ -65,8 +65,6 @@ export default {
         toggleIsCanceling() {
             this.isCanceling = !this.isCanceling;
             this.cancelBtnText = "Canceling";
-            console.log(this.contact);
-            console.log(this.contactCopy);
         },
 
         updateContact() {
@@ -85,7 +83,6 @@ export default {
 
         copyContact() {
             this.contactCopy = this.contact;
-            console.log(this.contactCopy);
         }
     },
 
