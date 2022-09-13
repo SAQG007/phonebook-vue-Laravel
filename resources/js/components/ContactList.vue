@@ -1,12 +1,4 @@
 <template>
-<!--    <div class="container-fluid">-->
-<!--        <div class="row">-->
-<!--            <div class="col">-->
-<!--                -->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
     <div class="card mt-4 mb-4" style="width: 100%; padding: 10px;" @click="toggleIsExpanded()" v-if="!isEditing">
         <h5 style="cursor: pointer">{{ contact.name }}</h5>
 
@@ -28,12 +20,12 @@
             <div class="mt-4">
                 <button class="btn btn-warning active" @click="toggleIsEditing()">Edit</button>
                 <button class="btn btn-danger active" @click="$emit('deleteContact', contact.id)">Delete</button>
-                <button class="btn btn-warning" @click="$emit('edit', contact.name)">Emit</button>
+                <button class="btn btn-warning" @click="$emit('edit', contact)">Emit</button>
             </div>
         </div>
     </div>
     <div v-else>
-        <contact-form :contact=contactCopy></contact-form>
+        <contact-form :contact=contact></contact-form>
     </div>
 </template>
 
@@ -45,7 +37,6 @@ export default {
         return {
             isExpanded: this.isExpandedProp,
             isEditing: false,
-            contactCopy: this.contact,
         }
     },
 
