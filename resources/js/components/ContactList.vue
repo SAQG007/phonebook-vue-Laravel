@@ -20,7 +20,6 @@
             <div class="mt-4">
                 <button class="btn btn-warning active" @click="toggleIsEditing()">Edit</button>
                 <button class="btn btn-danger active" @click="$emit('deleteContact', contact.id)">Delete</button>
-                <button class="btn btn-warning" @click="$emit('edit', contact)">Emit</button>
             </div>
         </div>
     </div>
