@@ -15,7 +15,7 @@
             </div>
         </form>
         <div v-for="contact in contacts"> <!--contact in JSON.parse(JSON.stringify(contacts))-->
-            <contact-list :contact=contact @edit="showAlert" @deleteContact="deleteContact"></contact-list>
+            <contact-list :contact=contact @deleteContact="deleteContact"></contact-list>
         </div>
     </div>
 </template>
@@ -39,6 +39,7 @@ export default {
 
     methods: {
         fetchContacts() {
+            this.contacts = {};
             axios.get(window.baseUrl + "contacts")
                 .then(response => {
                     let contactData = JSON.parse(JSON.stringify(response.data));
@@ -54,11 +55,32 @@ export default {
                 .catch(error => {
                     console.log(error)
                 });
+            this.fetchContacts();
         },
 
-        showAlert(value) {
-            alert(value.name);
-        }, // showAlert()
+        /* syncContact(value) {
+            // let syncUrl = window.baseUrl + "contact";
+
+            // let targetedUrl = (value.id == null) ? syncUrl : syncUrl + "/" + value.id;
+            // let targetedMethod = (value.id == null) ? "post" : "put";
+
+            let targetedUrl = window.baseUrl + "contact";
+            let targetedMethod = "post";
+
+            if(value.id != null)
+            {
+                targetedUrl = targetedUrl + "/" + value.id;
+                targetedMethod = "put";
+            }
+
+            axios({
+                method: targetedMethod,
+                url: targetedUrl,
+                data: {
+                    value
+                }
+            });
+        }, */
 
         deleteContact(value) {
             axios.delete( window.baseUrl + "contact/" + value)
@@ -68,6 +90,8 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
+
+            this.fetchContacts();
         }, // deleteContact()
 
     }, // methods
